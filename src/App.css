@@ -18,3 +18,16 @@ footer {
   padding: 20px 0; /* Padding for the footer */
   text-align: center; /* Center-align text */
 }
+
+.alternate-rows > .row:nth-child(even) {
+  background-color: #f8f9fa; /* Light gray for odd rows */
+}
+
+.alternate-rows > .row:nth-child(odd) {
+  background-color: #ffffff; /* White for even rows */
+}
+
+.equal-height {
+  display: flex;
+  flex-direction: column;
+}
