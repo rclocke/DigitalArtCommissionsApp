@@ -4,10 +4,10 @@ export default function Navigationbar(){
 
     return(
         <Navbar bg='dark' variant='dark' expand='lg'>
-            <Navbar.Brand href="/">Windlist Art Portfolio</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Brand className='ps-2' href="/">Windlist Art Portfolio</Navbar.Brand>
+            <Navbar.Toggle className='me-2' aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className='ml-auto'>
+                <Nav className='ml-auto ps-2'>
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/portfolio">Portfolio</Nav.Link>
                     <Nav.Link href="/commissions">Commissions</Nav.Link>
