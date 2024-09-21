@@ -96,7 +96,7 @@ export default function PackageOptions(){
         <Container className="text-center mt-5">
             <h1 className="text-start">Compare Packages</h1>
             <Row>
-                <Col className="equal-height">
+                <Col xs='12' md='4' className="equal-height mb-4">
                     <Card className="h-100">
                         <Card.Body className="d-flex flex-column">
                             <Card.Title as='h4'>Basic</Card.Title>
@@ -119,7 +119,7 @@ export default function PackageOptions(){
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col className="equal-height">
+                <Col xs='12' md='4' className="equal-height mb-4">
                     <Card className="h-100">
                         <Card.Body className="d-flex flex-column">
                             <Card.Title as='h4'>Standard</Card.Title>
@@ -145,7 +145,7 @@ export default function PackageOptions(){
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col className="equal-height">
+                <Col xs='12' md='4' className="equal-height mb-4">
                     <Card className="h-100">
                         <Card.Body className="d-flex flex-column">
                             <Card.Title as='h4'>Premium</Card.Title>
