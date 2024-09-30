@@ -1,8 +1,17 @@
 import React from "react";
+import { useState } from "react";
 import { Card, Col, Row, Button, Container, ListGroup } from "react-bootstrap";
 import { BsClock, BsArrowRepeat } from "react-icons/bs";
+import OrderOptions from "./OrderOptions";
 
 export default function PackageOptions(){
+    const [show, setShow] = useState(false);
+    
+    // Function to open the offcanvas
+    const handleShow = () => setShow(true);
+
+    // Function to close the offcanvas
+    const handleClose = () => setShow(false);
 
     return(
 
@@ -115,7 +124,7 @@ export default function PackageOptions(){
                                 <ListGroup.Item>3 Panels</ListGroup.Item>
                                 <ListGroup.Item>Shipping</ListGroup.Item>
                             </ListGroup>
-                            <Button className="d-grid mx-auto col-6 btn-lg mt-auto">Continue</Button>
+                            <Button className="d-grid mx-auto col-6 btn-lg mt-auto" onClick={handleShow}>Continue</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -141,7 +150,7 @@ export default function PackageOptions(){
                                 <ListGroup.Item>1 Panel</ListGroup.Item>
                                 <ListGroup.Item>Shipping</ListGroup.Item>
                             </ListGroup>
-                            <Button className="d-grid mx-auto col-6 btn-lg mt-auto">Continue</Button>
+                            <Button className="d-grid mx-auto col-6 btn-lg mt-auto" onClick={handleShow}>Continue</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -167,11 +176,12 @@ export default function PackageOptions(){
                                 <ListGroup.Item>1 Panel</ListGroup.Item>
                                 <ListGroup.Item>Shipping</ListGroup.Item>
                             </ListGroup>
-                            <Button className="d-grid mx-auto col-6 btn-lg mt-auto">Continue</Button>
+                            <Button className="d-grid mx-auto col-6 btn-lg mt-auto" onClick={handleShow}>Continue</Button>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
+            <OrderOptions show={show} handleClose={handleClose} />
         </Container>
 
         // <>
