@@ -31,3 +31,37 @@ footer {
   display: flex;
   flex-direction: column;
 }
+
+
+.custom-accordion .accordion-button {
+  background-color: #f0f0f0 !important; /* Background color */
+  color: black !important; /* Text color */
+  border: none !important; /* Remove border */
+  box-shadow: none !important; /* Remove box-shadow */
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+
+.custom-accordion .accordion-item {
+  border: none !important; /* Remove border from accordion item */
+}
+
+/* .custom-accordion-body {
+  padding-top: 5px !important; 
+  padding-bottom: 5px !important;
+  margin-top: 0 !important; 
+  margin-bottom: 0 !important;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
