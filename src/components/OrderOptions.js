@@ -5,53 +5,89 @@ import { BsClock, BsArrowRepeat, BsBoxSeam  } from "react-icons/bs";
 
 export default function OrderOptions({show, handleClose, selectedPackage}){
 
-    const [count, setCount] = useState(1);
+    const [packageCount, setPackageCount] = useState(1);
+    const [extraFeatures, setExtraFeatures] = useState([]);
+    const [extraFeaturesCount, setExtraFeaturesCount] = useState(0);
     const [expressDelivery, setExpressDelivery] = useState(false);
     const [animatedGif, setAnimatedGif] = useState(false);
     const [gifCount, setGifCount] = useState(1);
-
+    const [additionalFigures, setAdditonalFigures] = useState(false);
+    const [additionalFiguresCount, setAdditonalFiguresCount] = useState(1);
     const [totalPrice, setTotalPrice] = useState(0);
 
     // const handleIncrease = () =>{
-    //     setCount(count + 1)
+    //     setPackageCount(packageCount + 1)
     //     //setTotalPrice(totalPrice + selectedPackage.price)
     // };
 
-    const handleIncrease = () => {setCount(count + 1)};
-    const handleDecrease = () => {count > 1 && setCount(count -1)}
-
-    const handleGifIncrease = () => {
-        setGifCount(gifCount + 1);
+    const addExtraFeature = (feature) => {
+        setExtraFeatures([...extraFeatures, feature]);
     };
 
+    const handleIncrease = () => {setPackageCount(packageCount + 1)};
+    const handleDecrease = () => {packageCount > 1 && setPackageCount(packageCount -1)};
+
+    const handleFigureIncrease = () => {setAdditonalFiguresCount(additionalFiguresCount + 1)};
+    const handleFigureDecrease = () => {additionalFiguresCount > 1 && setAdditonalFiguresCount(additionalFiguresCount - 1)};
+
+    const handleGifIncrease = () => {setGifCount(gifCount + 1);};
+
     const handleGifDecrease = () => {
-        if (gifCount > 1) setGifCount(gifCount - 1); // Fixes the typo issue
+        if (gifCount > 1) setGifCount(gifCount - 1); 
+    };
+
+    const handleExpressDeliveryCheck = (checked) => {
+        setExpressDelivery(checked);
     };
 
     // const handleDecrease = () =>{
-    //     if(count > 1){
-    //         setCount(count - 1);
+    //     if(packageCount > 1){
+    //         setPackageCount(packageCount - 1);
     //         //setTotalPrice(totalPrice - selectedPackage.price)
     //     }
     // };
 
     useEffect(() =>{
         if(selectedPackage){
-            //setTotalPrice((selectedPackage.price * count).toFixed(2));
-            const basePrice = selectedPackage.price * count;
+            //setTotalPrice((selectedPackage.price * packageCount).toFixed(2));
+            const basePrice = selectedPackage.price * packageCount;
             const deliveryCharge = expressDelivery ? 14.26 : 0;
-            const calculatedTotal = Math.round((basePrice + deliveryCharge) * 100) / 100;
+            const animatedGifCharge = animatedGif ? (28.47 * gifCount) : 0;
+            const additionalFigureCharge = additionalFigures ? (21.35 * additionalFiguresCount) : 0;
+            const calculatedTotal = Math.round((basePrice + deliveryCharge + additionalFigureCharge + animatedGifCharge) * 100) / 100;
             setTotalPrice(calculatedTotal);
         }
-    }, [selectedPackage, count, expressDelivery]);
+    }, [selectedPackage, packageCount, expressDelivery, additionalFigures, additionalFiguresCount, animatedGif, gifCount]);
 
-    const handleExpressDeliveryCheck = (checked) => {
-        setExpressDelivery(checked);
+    // useEffect(() => {
+    //     // Reset states when the Offcanvas is closed
+    //     if (!show) {
+    //         setPackageCount(1);
+    //         setGifCount(1);
+    //         setAdditonalFiguresCount(1);
+    //         setExpressDelivery(false);
+    //         setAnimatedGif(false);
+    //         setAdditonalFigures(false);
+    //         setTotalPrice(selectedPackage.price);
+    //     }
+    // }, [show, selectedPackage]);
+
+    const handleCloseAndReset = () => {
+        setPackageCount(1);
+        setExtraFeatures([]);
+        setExtraFeaturesCount(0);
+        setGifCount(1);
+        setAdditonalFiguresCount(1);
+        setExpressDelivery(false);
+        setAnimatedGif(false);
+        setAdditonalFigures(false);
+        setTotalPrice(selectedPackage.price);
+        handleClose(); // Call the existing close function to actually close the Offcanvas
     };
-
+    
 
     return(
-        <Offcanvas show={show} onHide={handleClose} placement="end" style={{width: '35%'}}>
+        <Offcanvas show={show} onHide={handleCloseAndReset} placement="end" style={{width: '35%'}}>
             <Offcanvas.Header className="border-bottom" closeButton>
                 <Offcanvas.Title>
                     Order Options
@@ -76,7 +112,7 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                             </Col>
                             <Col className="text-end">
                                 <Button onClick={handleDecrease}>-</Button>
-                                <span className="mx-2">{count}</span>
+                                <span className="mx-2">{packageCount}</span>
                                 <Button onClick={handleIncrease}>+</Button>
                             </Col>
                         </Row>
@@ -94,7 +130,19 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                             </Col>
                             <Col className="text-end">
                                 <Form>
-                                    <Form.Check type="checkbox" onChange={(e) => handleExpressDeliveryCheck(e.target.checked)}></Form.Check>
+                                    {/* <Form.Check type="checkbox" onChange={(e) => handleExpressDeliveryCheck(e.target.checked)}></Form.Check> */}
+                                    <Form.Check 
+                                        type="checkbox" 
+                                        onChange={(e) => {
+                                            handleExpressDeliveryCheck(e.target.checked);
+                                            e.target.checked ? 
+                                                setExtraFeaturesCount(extraFeaturesCount + 1) : 
+                                                setExtraFeaturesCount(extraFeaturesCount - 1);
+                                            e.target.checked ? 
+                                                addExtraFeature(`Extra-fast ${selectedPackage.priorityDelivery}-day delivery`) : 
+                                                setExtraFeatures(extraFeatures.filter(feature => feature !== `Extra-fast ${selectedPackage.priorityDelivery}-day delivery`));
+                                        }}>
+                                    </Form.Check>
                                 </Form>
                             </Col>
                         </Row>
@@ -110,15 +158,35 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                             </Col>
                             <Col className="text-end">
                                 <Form>
-                                    <Form.Check type="checkbox"></Form.Check>
+                                    <Form.Check 
+                                        type="checkbox" 
+                                        onChange={(e) => {
+                                            setAdditonalFigures(e.target.checked);
+                                            e.target.checked ? 
+                                                setExtraFeaturesCount(extraFeaturesCount + 1) : 
+                                                setExtraFeaturesCount(extraFeaturesCount - 1);
+                                            e.target.checked ? 
+                                                addExtraFeature('Additional Figures') : 
+                                                setExtraFeatures(extraFeatures.filter(feature => feature !== 'Additional Figures'));    
+                                            // e.target.checked ? 
+                                            //     addExtraFeature(`Additional Figures X ${additionalFiguresCount}`) : 
+                                            //     setExtraFeatures(extraFeatures.filter(feature => feature !== `Additional Figures X ${additionalFiguresCount}`));
+                                        }}>
+                                    </Form.Check>
                                 </Form>
                             </Col>
                         </Row>
                         <Row>
                             <Col>Additional character to be added to your illustration.</Col>
                         </Row>
+                        <hr hidden={!additionalFigures}/>
                         <Row>
                             <Col>CA $21.35</Col>
+                            <Col className="text-end" hidden={!additionalFigures}>
+                                <Button onClick={handleFigureDecrease}>-</Button>
+                                <span className="mx-2">{additionalFiguresCount}</span>
+                                <Button onClick={handleFigureIncrease}>+</Button>
+                            </Col>
                         </Row>
                        
                     </Card.Body>
@@ -132,7 +200,18 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                             </Col>
                             <Col className="text-end">
                                 <Form>
-                                    <Form.Check type="checkbox" onChange={(e) => setAnimatedGif(e.target.checked)}></Form.Check>
+                                    <Form.Check 
+                                        type="checkbox" 
+                                        onChange={(e) => {
+                                            setAnimatedGif(e.target.checked)
+                                            e.target.checked ? 
+                                                setExtraFeaturesCount(extraFeaturesCount + 1) : 
+                                                setExtraFeaturesCount(extraFeaturesCount - 1);
+                                            e.target.checked ? 
+                                                addExtraFeature('Animated Gif') : 
+                                                setExtraFeatures(extraFeatures.filter(feature => feature !== 'Animated Gif'));
+                                        }}>
+                                    </Form.Check>
                                 </Form>
                             </Col>
                         </Row>
@@ -141,7 +220,6 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                         </Row>
                         <hr hidden={!animatedGif}/>
                         <Row>
-                            
                             <Col>CA $28.47</Col>
                             <Col className="text-end" hidden={!animatedGif}>
                                 <Button onClick={handleGifDecrease}>-</Button>
@@ -160,7 +238,10 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                         <Accordion className="custom-accordion">
                             <Accordion.Item eventKey="0" style={{backgroundColor: '#f0f0f0'}}>
                                 <Accordion.Header>
-                                    <BsBoxSeam className="me-2 "/> {selectedPackage.title} Package
+                                    <BsBoxSeam className="me-2 "/> 
+                                    {selectedPackage.title} Package 
+                                    <div className="ps-1" hidden={packageCount <= 1}>(x{packageCount})</div>
+                                    <div className="ps-1" hidden={extraFeaturesCount <= 0}> + extras (x{extraFeaturesCount})</div>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     {/* <ListGroup>
@@ -171,8 +252,17 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                                         <ListGroup.Item className="border-0 pb-0" style={{backgroundColor: '#f0f0f0'}}>Shipping</ListGroup.Item>
                                     </ListGroup> */}
                                     <ListGroup>
-                                        {selectedPackage.features.map((feature, id) =>(
-                                            <ListGroup.Item key={id} className="border-0 pb-0 pt-0" style={{backgroundColor: '#f0f0f0'}} >{feature}</ListGroup.Item>
+                                        {[...selectedPackage.features, ...extraFeatures].map((feature, id) =>(
+                                            // <ListGroup.Item key={id} className="border-0 pb-0 pt-0" style={{backgroundColor: '#f0f0f0'}} >{feature}</ListGroup.Item>
+                                            <ListGroup.Item key={id} className="border-0 pb-0 pt-0" style={{ backgroundColor: '#f0f0f0' }}>
+                                                {feature}
+                                                {feature === 'Additional Figures' && additionalFiguresCount > 1 && (
+                                                    <span className="ps-1">(x{additionalFiguresCount})</span>
+                                                )}
+                                                {feature === 'Animated Gif' && gifCount > 1 && (
+                                                    <span className="ps-1">(x{gifCount})</span>
+                                                )}
+                                            </ListGroup.Item>
                                         ))}
                                     </ListGroup>
                                 </Accordion.Body>
