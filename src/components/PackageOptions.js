@@ -22,7 +22,8 @@ export default function PackageOptions({handleShow}){
                     <Card className="h-100">
                         <Card.Body className="d-flex flex-column">
                             <Card.Title as='h4'>Basic</Card.Title>
-                            <Card.Text as='h5'>The Oldie: Black and White Headshot CA$21.37</Card.Text>
+                            <Card.Text as='h5'>The Oldie: Black and White Headshot</Card.Text>
+                            <Card.Text as='h5'>CA$21.37</Card.Text>
                             <Card.Text>
                                 3 Sketches - Black and White - No Background, Shoulders up angle. The perfect way to test me first!
                             </Card.Text>
@@ -46,7 +47,8 @@ export default function PackageOptions({handleShow}){
                     <Card className="h-100">
                         <Card.Body className="d-flex flex-column">
                             <Card.Title as='h4'>Standard</Card.Title>
-                            <Card.Text as='h5'>Meet Me Halfway: Colored, Waist Up  CA$56.99</Card.Text>
+                            <Card.Text as='h5'>Meet Me Halfway: Colored, Waist Up</Card.Text>
+                            <Card.Text as='h5'>CA$56.99</Card.Text>
                             <Card.Text>
                                 One fully realized professional character art in color, waist up! Includes simple background.
                             </Card.Text>
@@ -73,7 +75,8 @@ export default function PackageOptions({handleShow}){
                     <Card className="h-100">
                         <Card.Body className="d-flex flex-column">
                             <Card.Title as='h4'>Premium</Card.Title>
-                            <Card.Text as='h5'>The Full Package (MOST POPULAR!) CA$85.48</Card.Text>
+                            <Card.Text as='h5'>The Full Package (MOST POPULAR!)</Card.Text>
+                            <Card.Text as='h5'>CA$85.48</Card.Text>
                             <Card.Text>
                                 One professional character art + full body & color. Detailed background & free UNLIMITED revisions! 
                             </Card.Text>
