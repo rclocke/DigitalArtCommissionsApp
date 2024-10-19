@@ -8,12 +8,15 @@ export default function AboutThisGig(){
             <Card.Body>
                 <Card.Title>About This Gig</Card.Title>
                 <Card.Text>
-                    Hi there! My name is Windlist and I draw cartoons and anime of fanart, oc and character concepts. I specialize 
-                    in cartoon and anime styles but I don't mind expanding my horizons a bit. All I ask is if you can message me in 
-                    advance if this is the case :)
+                Hi there! My name is Windlist (aka Victoria) and I draw cartoons and anime of fanart, oc and character concepts. I 
+                specialize in cartoon and anime styles but I don't mind expanding my horizons a bit. All I ask is if you can message me 
+                in advance if this is the case :)
                 </Card.Text>
                 <Card.Text>
                         What I do:<br/>female/male/they/them (LGBTQ+ friendly, everyone is welcomed) fanart
+                </Card.Text>
+                <Card.Text>
+                        What I wont do:<br/>nsfw
                 </Card.Text>
                 <Card.Text>  
                         Please note: ALL of my prices are negotiable, as I understand the kind of times we are living in.
@@ -24,11 +27,14 @@ export default function AboutThisGig(){
                 <ListGroup>
                     <ListGroup.Item className="border-0">
                         <ul >
-                            <li className="mb-2">Extra poses ($20 per pose) **NOTE: Premium purchases include 1 free additional pose**</li>
+                            <li className="mb-2">
+                                Extra poses ($15 per pose and extra 3-day delivery time) **NOTE: Premium purchases 
+                                include 1 free additional pose**</li>
                             <li className="mb-2">FREE Revisions</li>
                             <li className="mb-2">Animated GIFS (discord sticker sizes available) **Extra $20**</li>
                             <li className="mb-2">FREE HD artwork</li>
-                            <li>Prices include regular shipping, extra shipping cost varies.</li>
+                            <li>Prices include regular shipping/delivery, extra shipping costs (i.e. if physical copies are requested) 
+                                vary & can be determined upon messaging me.</li>
                         </ul>
                     </ListGroup.Item>
                 </ListGroup>
@@ -40,7 +46,7 @@ export default function AboutThisGig(){
                     I look forward to working with you!
                 </Card.Text>
                 <Card.Text>
-                    Sincerely, <br />Windlist
+                    Sincerely, <br />Windlist (aka Victoria)
                 </Card.Text>
                 <hr />
                 <Row className="g-0">
