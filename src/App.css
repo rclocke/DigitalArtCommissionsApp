@@ -54,6 +54,14 @@ footer {
   margin-bottom: 0 !important;
 } */
 
+.custom-checkbox .form-check-input {
+  border: 1px solid grey; /*color for a defined border */
+  border-radius: 4px; /* Rounded corners */
+  width: 18px;
+  height: 18px;
+}
+
+
 
 
 
