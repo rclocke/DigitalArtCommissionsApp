@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Button, Card, Offcanvas, Row, Col, Form, ListGroup, Accordion, Badge } from "react-bootstrap";
-import { BsClock, BsArrowRepeat, BsBoxSeam  } from "react-icons/bs";
+import { BsClock, BsArrowRepeat, BsBoxSeam, BsPlus  } from "react-icons/bs";
 
 export default function OrderOptions({show, handleClose, selectedPackage}){
 
@@ -30,7 +30,7 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
     const handleFigureIncrease = () => {setAdditonalFiguresCount(additionalFiguresCount + 1)};
     const handleFigureDecrease = () => {additionalFiguresCount > 1 && setAdditonalFiguresCount(additionalFiguresCount - 1)};
 
-    const handleGifIncrease = () => {setGifCount(gifCount + 1);};
+    const handleGifIncrease = () => {setGifCount(gifCount + 1)};
 
     const handleGifDecrease = () => {
         if (gifCount > 1) setGifCount(gifCount - 1); 
@@ -133,6 +133,7 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                                     {/* <Form.Check type="checkbox" onChange={(e) => handleExpressDeliveryCheck(e.target.checked)}></Form.Check> */}
                                     <Form.Check 
                                         type="checkbox" 
+                                        className="custom-checkbox"
                                         onChange={(e) => {
                                             handleExpressDeliveryCheck(e.target.checked);
                                             e.target.checked ? 
@@ -159,7 +160,8 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                             <Col className="text-end">
                                 <Form>
                                     <Form.Check 
-                                        type="checkbox" 
+                                        type="checkbox"
+                                        className="custom-checkbox"
                                         onChange={(e) => {
                                             setAdditonalFigures(e.target.checked);
                                             e.target.checked ? 
@@ -202,6 +204,7 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                                 <Form>
                                     <Form.Check 
                                         type="checkbox" 
+                                        className="custom-checkbox"
                                         onChange={(e) => {
                                             setAnimatedGif(e.target.checked)
                                             e.target.checked ? 
@@ -255,6 +258,7 @@ export default function OrderOptions({show, handleClose, selectedPackage}){
                                         {[...selectedPackage.features, ...extraFeatures].map((feature, id) =>(
                                             // <ListGroup.Item key={id} className="border-0 pb-0 pt-0" style={{backgroundColor: '#f0f0f0'}} >{feature}</ListGroup.Item>
                                             <ListGroup.Item key={id} className="border-0 pb-0 pt-0" style={{ backgroundColor: '#f0f0f0' }}>
+                                                {extraFeatures.includes(feature) && <BsPlus className="me-1" />}
                                                 {feature}
                                                 {feature === 'Additional Figures' && additionalFiguresCount > 1 && (
                                                     <span className="ps-1">(x{additionalFiguresCount})</span>
