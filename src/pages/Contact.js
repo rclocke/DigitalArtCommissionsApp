@@ -1,20 +1,61 @@
 import React from 'react';
-import { useState } from 'react';
+//import { useState } from 'react';
 import { Container, Button, Form, Row, Col } from 'react-bootstrap';
 
 export default function Contact() {
 
-  const [validated, setValidated] = useState(false);
+  //const [validated, setValidated] = useState(false);
 
-  function handleSubmit(e){
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/contact')  // Explicitly add the backend URL for testing
+  //     .then(response => response.text())
+  //     .then(data => console.log(data)) // Should log "Connected to React"
+  //     .catch(error => console.error('Error:', error));
+  // }, []);
+
+  async function handleSubmit(e){
+    e.preventDefault();
     const form = e.currentTarget;
+    console.log(form.elements.firstName.value);
+    console.log(form.elements.lastName.value);
+    console.log(form.elements.subject.value);
+    console.log(form.elements.email.value);
+    console.log(form.elements.message.value);
+
     if(form.checkValidity() === false){
-      e.preventDefualt();
       e.stopPropagation();
     }
+    else{
+      const emailData = {
+        from: form.elements.email.value,
+        to: 'ryanlocke0617@gmail.com',   //this will need to be changed to victorias email
+        subject: form.elements.subject.value,
+        text: form.elements.message.value,
+        replyTo: form.elements.email.value
+      }
 
-    setValidated(true);
-  }
+      try{
+        const response = await fetch('http://localhost:8080/send-email', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailData),
+        });
+
+        if(response.ok){
+          console.log('email send Successfully');
+        }
+        else{
+          console.log('error sending email');
+        }
+      }catch(error){
+        console.log(error);
+      }
+    }
+
+    //setValidated(true);
+  };
 
   return (
         // <Container className="text-center mt-5">
@@ -115,7 +156,7 @@ export default function Contact() {
     <Container fluid className="mt-3">
       <h2 className="mb-4">Contact Windlist</h2>
       <h6 className='mb-4'>Ask Windlist a question or share your project details (requirments, timeline, budget, etc.)</h6>
-      <Form validated={validated} onSubmit={handleSubmit} className='mb-4' 
+      <Form onSubmit={handleSubmit} className='mb-4' 
         style={{
           backgroundColor: '#f8f9fa', // Light grey background
           padding: '20px',
@@ -128,6 +169,7 @@ export default function Contact() {
               <Form.Control
                 type="text"
                 placeholder="Enter your name"
+                name='firstName'
                 required
                 style={{border: '1px solid #495057', borderRadius: '10px'}}
               />
@@ -139,6 +181,7 @@ export default function Contact() {
               <Form.Control
                 type="text"
                 placeholder="Enter your name"
+                name='lastName'
                 required
                 style={{border: '1px solid #495057', borderRadius: '10px'}}
               />
@@ -153,6 +196,7 @@ export default function Contact() {
               <Form.Control
                 type="email"
                 placeholder="Enter your email"
+                name='email'
                 required
                 style={{border: '1px solid #495057', borderRadius: '10px'}}
               />
@@ -164,6 +208,7 @@ export default function Contact() {
               <Form.Control
                 type="text"
                 placeholder="Subject"
+                name='subject'
                 required
                 style={{border: '1px solid #495057', borderRadius: '10px'}}
               />
@@ -177,6 +222,7 @@ export default function Contact() {
             as="textarea"
             rows={6}
             placeholder="Write your message here"
+            name='message'
             required
             style={{border: '1px solid #495057', borderRadius: '10px'}}
           />
